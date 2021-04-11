@@ -23,7 +23,6 @@ describe('Employee', () => {
     });
     
     // email
-
     it('should return an email when I pass an email to employee', () =>{
 
         //Arrange/Acting
@@ -33,17 +32,47 @@ describe('Employee', () => {
 
     });
     
-
-
     // getName()
-    
+    describe("getName", () => {
+       
+        it("should return the name of the employee", () => {
+
+          expect(new Employee("Anthony", "096171", "acastcard@gmail.com").getName()).toBe("Anthony");
+        });
+       
+
+    });
     
     // getId()
+    describe("getId", () => {
+       
+        it("should get the Id of the employee", () => {
+            
+          expect(new Employee("Anthony", "096171", "acastcard@gmail.com").getId()).toBe("096171");
+        });
+       
+
+    });
     
     // getEmail()
+    describe("getEmail", () => {
+       
+        it("should get the email of the employee", () => {
+            
+          expect(new Employee("Anthony", "096171", "acastcard@gmail.com").getEmail()).toBe("acastcard@gmail.com");
+        });
+       
+
+    });
     
     // getRole()—returns 'Employee'
-
-
-
+    describe("getRole", () => {
+       
+        it("should return the employee role as Employee", () => {
+            
+          expect(new Employee("Anthony", "096171", "acastcard@gmail.com").getRole()).toBe("Employee");
+        });
+       
+    });
+    
 })
