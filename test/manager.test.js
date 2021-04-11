@@ -12,7 +12,7 @@ describe('Manager', () => {
 
     });
 
-    // id
+    // Id
     it('should return an ID when I pass an ID to Manager', () =>{
 
         //Arrange/Acting
@@ -22,7 +22,7 @@ describe('Manager', () => {
 
     });
     
-    // email
+    // Email
     it('should return an email when I pass an email to Manager', () =>{
 
         //Arrange/Acting
@@ -32,7 +32,7 @@ describe('Manager', () => {
 
     });
     
-    // school
+    // Office
     it('should return an office number when I pass an office number to Manager', () =>{
 
         //Arrange/Acting
