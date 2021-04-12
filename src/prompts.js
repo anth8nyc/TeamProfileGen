@@ -2,7 +2,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const genhtml = require('./generatehtml');
-const genmd = require('./genmd');
 const Engineer = require('../lib/engineer');
 const Intern = require('../lib/intern');
 const Manager = require('../lib/manager');
@@ -153,7 +152,7 @@ function continueTeam(){
 function teamBuilder(data) { 
      
     // const filename = `../dist/${data.title.toLowerCase().split(' ').join('')}.md`;
-    const filename = `testing.md`
+    const filename = `../dist/indextest.html`
     writeToFile(filename, data);
 
 };
