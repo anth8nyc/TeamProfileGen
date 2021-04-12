@@ -157,11 +157,6 @@ function teamBuilder(data) {
 
 };
 
+managerStart();
 
-
-managerStart()
-
-
-// teamBuilder();
-// A function call to initialize function
-// init();
+// module.exports = managerStart
