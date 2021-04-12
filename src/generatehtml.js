@@ -1,143 +1,58 @@
 // A function that returns a license badge based on which license is passed in
-function renderLicenseBadge(license) {
-  switch (license) {
-    case 'MIT':
-      response = `![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)`
-      break;
-    
-    case 'APACHE_2.0':
-      response = `![GitHub license](https://img.shields.io/badge/license-APACHE_2.0-blue.svg)`
-      break;
-      
-    case 'GPL_3.0':
-      response = `![GitHub license](https://img.shields.io/badge/license-GPL_3.0-blue.svg)`
-      break;
-    case 'BSD_3':
-      response = `![GitHub license](https://img.shields.io/badge/license-BSD_3-blue.svg)`
-      break;
-    case 'None':
-      response = ``
-      break;
-    default:
-      response = ``
-      break;
-  }
-  return response
-}
-// A function to provide the image link templates for after the title and for the Demo area  
-function renderMediaAssist(mediaquest) {
-  switch (mediaquest) {
-    case 'Yes -- please include after project title':
-      response1 = `\n![Change to alt text](changeToImageLink)`
-      response2 = ``
-      break;
-    
-    case 'Yes -- please include in usage information area':
-      response1 = ``
-      response2 = `### Demo\n![Change to alt text](changeToImageLink)`
-      break;
-      
-    case 'Yes -- please include both above.':
-      response1 = `\n![Change to alt text](changeToImageLink)`
-      response2 = `### Demo\n![Change to alt text](changeToImageLink)`
-      break;
-    case 'No':
-      response1 = ``
-      response2 = ``
-      break;
-    default:
-      response1 = ``
-      response2 = ``
-      break;
-  }
-  return [response1, response2]
-}
+function renderEmpBlocks(info) {
 
-// A function that returns the license section of README.
-function renderLicenseSection(license) {
-
-  switch (license) {
-    case 'MIT':
-      response = `## License
-      This project is licensed under the MIT license.\n---`
-      break;
-    
-    case 'APACHE_2.0':
-      response = `## License
-      This project is licensed under the APACHE_2.0 license.\n---`
-      break;
-      
-    case 'GPL_3.0':
-      response = `## License
-      This project is licensed under the GPL_3.0 license.\n---`
-      break;
-    case 'BSD_3':
-      response = `## License
-      This project is licensed under the BSD_3 license.\n---`
-      break;
-    case 'None':
-      response = ``
-      break;
-    default:
-      response = ``
-      break;
-  }
-  return response
+    let blocks = ' '
+    let employeesArray = info
+    console.log(employeesArray)
+    employeesArray.forEach(employee => {
+        blocks.concat(`
+        <div class="rounded col-md-4">
+              <div class="rounded bg-info text-light">
+                  ${employee.empName}
+              </div>
+              <div class="col-md-11 container">
+                  <div>ID: ${employee.id}</div>    
+                  <div>Email: <a class="text-danger align-self-center" href = "mailto:${employee.email}">${employee.email}</a></div>    
+                  <div>Office number: ${employee.office}</div>    
+              </div>
+        </div>`)
+       
+    });
+    return blocks
+  
 }
 
 //A function to generate markdown for README
-function generateMarkdown(data) {
+function generatehtml(data) {
 
-  let licBadge = renderLicenseBadge(data.lic);
-  let licSection = renderLicenseSection(data.lic);
-  let mediaAnswers = renderMediaAssist(data.mediaquest)
-  
-  titleImgPrv = mediaAnswers[0]
-  usgImgPrv = mediaAnswers[1]
-  // Includes or removes License from table of contents
-  if (licSection === ``){
-
-    tblContentLic = ``
-
-  } else {
-
-    tblContentLic = `\n- [License](#license)`    
-  }
+  let blocks = renderEmpBlocks(data);
+    
   //Indented oddly to preserve string literal indenting in README production 
   return `
-# ${data.title} READme
-${licBadge}
-${titleImgPrv}
-## Description
-${data.description}
-## Table of Contents
-- [Installation](#installation)
-- [Usage](#usage)${tblContentLic}
-- [Contribute](##contribute)
-- [Test](##tests)
-- [Contact](##questions?)
-
-## Installation
-To install necessary dependencies, run the following command:
-
-    ${data.installinstruct}
-## Usage
-${data.useinfo}
-${usgImgPrv}
-
----  
-${licSection}
-## Contribute
-${data.contribguide}
-## Tests
-To run tests, run the following command:
-
-    ${data.testinstruct}
-## Questions?
-If you come across any issues with the repo, please open an issue, or contact me directly at: ${data.email}. More of my work is avaiable on GitHub at [${data.username}](https://github.com/${data.username}/).
-
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Team Generator</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <body>
+      <nav class="navbar rounded bg-danger text-light justify-content-md-between justify-content-center d-flex align-items-center pt-3">
+          <div>
+              <h1 class="mb-0 ml-3"> My Team</h1>
+          </div>
+      </nav>
+      <main class="container-fluid d-flex mt-5">
+        '${blocks}'
+      </main> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+  </html>
 `;
 
 }
 
-// module.exports = generatehtml.js;
+module.exports = generatehtml;

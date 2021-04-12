@@ -82,7 +82,7 @@ const intquestions = [
 // A function to write README file //////////////////////
 function writeToFile(filename, data) {
 
-    fs.writeFile(filename, genmd(data), (err) =>
+    fs.writeFile(filename, genhtml(data), (err) =>
         err ? console.error(err) : console.log('Success!\n------')
     );
 }
@@ -91,7 +91,7 @@ function managerStart(){
 
     inquirer.prompt([...mquestions])
     .then((data)=>{
-        let addedManager = new Manager (data.empName, data.Id, data.email, data.office)
+        let addedManager = new Manager (data.empName, data.id, data.email, data.office)
         employees.push(addedManager)
         continueTeam(); 
     });
@@ -100,7 +100,7 @@ function managerStart(){
 function addEngineer(){
     inquirer.prompt([...engquestions])
     .then((data)=>{
-        let addedEngineer = new Engineer (data.empName, data.Id, data.email, data.github)
+        let addedEngineer = new Engineer (data.empName, data.id, data.email, data.github)
         employees.push(addedEngineer)
         console.log('-------\nAdded: ' + addedEngineer.empName + '\n----')
         continueTeam();
@@ -112,7 +112,7 @@ function addEngineer(){
 function addIntern(){
     inquirer.prompt([...intquestions])
     .then((data)=> {
-        let addedIntern = new Intern (data.empName, data.Id, data.email, data.school)
+        let addedIntern = new Intern (data.empName, data.id, data.email, data.school)
         employees.push(addedIntern)
         console.log('-------\nAdded: ' + addedIntern.empName + '\n----')
         continueTeam();
@@ -140,7 +140,7 @@ function continueTeam(){
                 addIntern();
                 break;
             case `I'm finished building my team`:
-                genmd();
+                teamBuilder(employees);
                 break;
             default:
                 break;
@@ -148,19 +148,16 @@ function continueTeam(){
     })
     return employees
 }
+
 // A function to initialize app
-function teamBuilder() { 
-  
-    continueTeam()
+function teamBuilder(data) { 
+     
+    // const filename = `../dist/${data.title.toLowerCase().split(' ').join('')}.md`;
+    const filename = `testing.md`
+    writeToFile(filename, data);
 
-    .then((data) => {
-        
-        // const filename = `../dist/${data.title.toLowerCase().split(' ').join('')}.md`;
-        const filename = `testing.md`
-        writeToFile(filename, data.employees);
+};
 
-    });
-}
 
 
 managerStart()

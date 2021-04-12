@@ -1,7 +1,12 @@
 function generateMarkdown(data) {
 
+
+  console.log(data)
+
     return `
-  # ${data.employees}
+  # ${data}
   `;
   
 }
+
+module.exports = generateMarkdown;
