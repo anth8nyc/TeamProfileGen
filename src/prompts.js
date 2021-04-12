@@ -2,6 +2,12 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const genhtml = require('./generatehtml');
+const genmd = require('./genmd');
+const Engineer = require('../lib/engineer');
+const Intern = require('../lib/intern');
+const Manager = require('../lib/manager');
+
+let employees = [];
 
 // Array of questions for user input
 const mquestions = [
@@ -24,12 +30,6 @@ const mquestions = [
         type: 'input',
         message: 'What is your office number?',
         name: 'office',
-    },
-    {
-        type: 'list',
-        message: 'Build your team:',
-        name: 'teambuilder',
-        choice: ['Add an Engineer', 'Add an Intern', `I'm finished building my team`]
     },
 ];
 
@@ -54,12 +54,6 @@ const engquestions = [
         message: 'What is their GitHub account name?',
         name: 'github',
     },
-    {
-        type: 'list',
-        message: 'Is this correct?: \n----\n(Display information)',
-        name: 'confirmeng',
-        choice: ['Yes', 'No']
-    },
 ];
 
 const intquestions = [
@@ -83,33 +77,95 @@ const intquestions = [
         message: 'What college or university do they attend?',
         name: 'school',
     },
-    {
-        type: 'list',
-        message: 'Is this correct?: \n----\n(Display information)',
-        name: 'confirmint',
-        choice: ['Yes', 'No']
-    },
 ];
 
-
-// A function to write README file
+// A function to write README file //////////////////////
 function writeToFile(filename, data) {
 
-    fs.writeFile(filename, genhtml(data), (err) =>
+    fs.writeFile(filename, genmd(data), (err) =>
         err ? console.error(err) : console.log('Success!\n------')
     );
 }
 
+function managerStart(){
+
+    inquirer.prompt([...mquestions])
+    .then((data)=>{
+        let addedManager = new Manager (data.empName, data.Id, data.email, data.office)
+        employees.push(addedManager)
+        continueTeam(); 
+    });
+}
+
+function addEngineer(){
+    inquirer.prompt([...engquestions])
+    .then((data)=>{
+        let addedEngineer = new Engineer (data.empName, data.Id, data.email, data.github)
+        employees.push(addedEngineer)
+        console.log('-------\nAdded: ' + addedEngineer.empName + '\n----')
+        continueTeam();
+        return addedEngineer
+    })
+
+}
+
+function addIntern(){
+    inquirer.prompt([...intquestions])
+    .then((data)=> {
+        let addedIntern = new Intern (data.empName, data.Id, data.email, data.school)
+        employees.push(addedIntern)
+        console.log('-------\nAdded: ' + addedIntern.empName + '\n----')
+        continueTeam();
+        return addedIntern
+    })
+}
+
+function continueTeam(){
+
+    console.log(employees)
+
+    inquirer.prompt({
+        type: 'list',
+        message: 'Build your team:',
+        name: 'teamCall',
+        choices: ['Add an Engineer', 'Add an Intern', `I'm finished building my team`]
+    })
+
+    .then((data)=>{
+        switch (data.teamCall) {
+            case 'Add an Engineer':
+                addEngineer();
+                break;
+            case 'Add an Intern':
+                addIntern();
+                break;
+            case `I'm finished building my team`:
+                genmd();
+                break;
+            default:
+                break;
+        }
+    })
+    return employees
+}
 // A function to initialize app
-function init() { 
-    inquirer.prompt([...questions])
+function teamBuilder() { 
+  
+    continueTeam()
+
     .then((data) => {
         
-        const filename = `../dist/${data.title.toLowerCase().split(' ').join('')}.html`;
-        writeToFile(filename, data);
+        // const filename = `../dist/${data.title.toLowerCase().split(' ').join('')}.md`;
+        const filename = `testing.md`
+        writeToFile(filename, data.employees);
 
     });
 }
 
+
+managerStart()
+
+
+// teamBuilder();
 // A function call to initialize function
-init();
+// init();

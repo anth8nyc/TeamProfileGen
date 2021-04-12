@@ -140,4 +140,4 @@ If you come across any issues with the repo, please open an issue, or contact me
 
 }
 
-module.exports = generatehtml;
+// module.exports = generatehtml.js;
