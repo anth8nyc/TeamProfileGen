@@ -22,7 +22,7 @@ The application is ran by running
 from the terminal. Answer the prompts until your team is built and select the prompt for being finished when you are done.
 ### Demo
 
-[Click here for a video demonstrating the application in use!]('https://drive.google.com/drive/folders/1lhKfDaQj_lo349lqtAoSq2VV_sYkGfkZ?usp=sharing')
+[Click here for a video demonstrating the application in use!](https://drive.google.com/drive/folders/1lhKfDaQj_lo349lqtAoSq2VV_sYkGfkZ?usp=sharing)
 
 ---
 ![Gif demonstrating application](./src/images/TeamProfileGenerator.gif)
