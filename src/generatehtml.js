@@ -3,7 +3,6 @@ function renderEmpBlocks(info) {
 
     let blocks = ' '
     let employeesArray = info
-    console.log(employeesArray)
     employeesArray.forEach(employee => {
         
         let employeeNiche = ``
@@ -39,7 +38,6 @@ function renderEmpBlocks(info) {
 function generatehtml(data) {
 
   let blocks = renderEmpBlocks(data);
-  console.log(blocks + "-----");
     
   //Indented oddly to preserve string literal indenting in README production 
   return `
